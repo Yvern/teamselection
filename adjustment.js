@@ -1,0 +1,68 @@
+const obtainReward = require('./reward');
+
+/**
+ * Function to compare two given teams based on score, where a higher score will
+ * sort the team into a lower order
+ */
+function rankTeams(teamA, teamB) {
+  if (teamA.score > teamB.score) {
+    return -1;
+  }
+  if (teamA.score < teamB.score) {
+    return 1;
+  }
+  return 0;
+}
+
+function adjustWinner(player) {
+  player.weight += 10;
+  return player;
+}
+
+function adjustLoser(player) {
+  player.weight -= 10;
+  return player;
+}
+
+function adjust(team, match) {
+  let adjustedTeam = JSON.parse(JSON.stringify(team));
+
+  let reward = obtainReward(match);
+  if (reward === 100) {
+    console.log('Yay, a draw! Reward: ' + reward);
+  } else {
+    console.log('Not a draw, must improve: ' + reward);
+    //sort teams in order of score, where rankedTeams[0] is the highest scoring
+    //team
+    let rankedTeams = match.teams.sort(rankTeams);
+
+    //adjust player variables if they were in the winning team or losing team
+    adjustedTeam.players = team.players.map(player => {
+      //if the player was on the winning team, adjust for win
+      rankedTeams[0].players.forEach(winningPlayer => {
+        if (player.id === winningPlayer.id) {
+          return adjustWinner(player);
+        }
+      });
+      //if the player was on the losing team, adjust for loss
+      rankedTeams[1].players.forEach(losingPlayer => {
+        if (player.id === losingPlayer.id) {
+          return adjustLoser(player);
+        }
+      });
+      //if player was not in the match, don't change
+      return player;
+    });
+  }
+
+  //return the team with adjust players
+  return adjustedTeam;
+}
+
+/**
+ * Function intended for testing.
+ */
+module.exports = {
+  adjust: adjust,
+  obtainReward: obtainReward
+};
