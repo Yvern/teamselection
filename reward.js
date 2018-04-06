@@ -12,7 +12,6 @@ function obtainReward(match) {
   let relativeDifference =
     difference / (match.teams[0].score + match.teams[1].score) * 100;
 
-  console.log('difference: ' + relativeDifference);
   reward = 100 - difference;
   //ensure reward is greater than 0
   reward = reward < 0 ? 0 : reward;

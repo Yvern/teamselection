@@ -8,7 +8,6 @@ const RANDOM_PERCENTAGE_VARIATION = 5;
 module.exports = function(teams) {
   //create a copy of teams
   let match = { teams: JSON.parse(JSON.stringify(teams)) };
-  console.log('simulate');
   //calculate the total weight for each team
   let totalWeight = 0;
   let totalWeights = teams.map(({ players }) => {
@@ -33,7 +32,6 @@ module.exports = function(teams) {
           Math.floor(Math.random() * RANDOM_PERCENTAGE_VARIATION);
     return Math.floor(randomRelativeWeight);
   });
-  console.log('Team weights: ' + scores + ' , ' + totalWeights);
 
   //add simulated scores to match teams
   for (i = 0; i < match.teams.length; i++) {

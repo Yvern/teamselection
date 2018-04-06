@@ -16,11 +16,13 @@ function rankTeams(teamA, teamB) {
 
 function adjustWinner(player) {
   player.weight += 10;
+  player.gamesWon += 1;
   return player;
 }
 
 function adjustLoser(player) {
   player.weight -= 10;
+  player.gamesLost += 1;
   return player;
 }
 
@@ -31,13 +33,14 @@ function adjust(team, match) {
   if (reward === 100) {
     console.log('Yay, a draw! Reward: ' + reward);
   } else {
-    console.log('Not a draw, must improve: ' + reward);
     //sort teams in order of score, where rankedTeams[0] is the highest scoring
     //team
     let rankedTeams = match.teams.sort(rankTeams);
 
     //adjust player variables if they were in the winning team or losing team
     adjustedTeam.players = team.players.map(player => {
+      player.gamesPlayed += 1;
+
       //if the player was on the winning team, adjust for win
       rankedTeams[0].players.forEach(winningPlayer => {
         if (player.id === winningPlayer.id) {
