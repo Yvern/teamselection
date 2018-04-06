@@ -1,4 +1,5 @@
-const teamSelection = require('./teamselectionsimple.js');
+const teamSelectionSimple = require('./iteration1/teamselectionsimple.js');
+const teamSelectionImproved = require('./iteration2/teamselectionimproved.js');
 
 //test team data
 const team = {
@@ -183,4 +184,4 @@ const match = {
 };
 
 //run teamselection
-teamSelection(team, match);
+teamSelectionImproved(team, match);

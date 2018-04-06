@@ -2,7 +2,7 @@ const RANDOM_PERCENTAGE_VARIATION = 5;
 
 const TURNS = 20; //turns in which teams have a 'chance' to score when using turnScoring
 const DIMINISHING_RATE = 0.5; //lower numbers will result in less diminishing chance
-const RANDOM_TURN_VARIATION = 3;
+const RANDOM_TURN_VARIATION = 3; //optional boost for stronger teams in turnScoring
 
 /**
  * A function to simulate match outcomes based on given player strengths (as
