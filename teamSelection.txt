@@ -1,0 +1,55 @@
+0
+TEAM 1: Richard,DanB,Joost,Bogdan,Ausdang
+TEAM 2: Tamas,Josh,Emilian,Njabulo,Rares
+
+4
+TEAM 1: Oliver,Joost,Rares,DanL,Saleh
+TEAM 2: DanB,Jake,Bogdan,Michael,Ausdang
+
+6
+TEAM 1: Oliver,StephenL,ChrisE,Bogdan,Saleh
+TEAM 2: Richard,Tamas,DanB,Njabulo,Ausdang
+
+7
+TEAM 1: Tamas,Emilian,MattL,DanL,Saleh
+TEAM 2: Wazzy,DanB,ChrisE,Michael,Ausdang
+
+8
+TEAM 1: Oliver,Tamas,DanB,Emilian,MattL
+TEAM 2: Jason,Richard,Josh,ChrisE,Njabulo
+
+11
+TEAM 1: Oliver,Emilian,Joost,Rares,Ausdang
+TEAM 2: Richard,Josh,ChrisE,MattL,DanL
+
+13
+TEAM 1: Richard,Joost,MattL,DanL,Saleh
+TEAM 2: Tamas,Emilian,Bogdan,Michael,Ausdang
+
+14
+TEAM 1: Jason,Josh,Jake,Bogdan,Saleh
+TEAM 2: Richard,Wazzy,ChrisE,DanL,Ausdang
+
+16
+TEAM 1: Oliver,Tamas,Emilian,Jake,Saleh
+TEAM 2: Jason,Richard,Wazzy,Bogdan,Rares
+
+19 - limited data
+TEAM 1: JakeA,ChrisA,DanB,Tom,Saleh
+TEAM 2: Darrell,Ethan,Rich,Joost,Owen
+
+20 - limited data
+TEAM 1: Tamas,Ethan,TomM,Joost,DanL
+TEAM 2: Stuart,Darrell,Sayed,Bogdan,Mircea
+
+21 - limited data
+TEAM 1: Oliver,Oli,Emilian,Stephen,DanL
+TEAM 2: Richard,Darrell,ChrisA,Yasser,MattL
+
+22 - limited data
+TEAM 1: Oliver,Salman,Stephen,Rares,Michael
+TEAM 2: Tamas,TomW,Jake,MattL,DanL
+
+23 - limited data
+TEAM 1: Richard,ChrisA,DanB,Jake,Saleh
+TEAM 2: Stuart,Darrell,Sayed,Owen,Michael

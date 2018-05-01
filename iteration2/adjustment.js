@@ -1,4 +1,5 @@
 const obtainReward = require('./reward');
+const fs = require('fs');
 
 /**
  * Function to compare two given teams based on score, where a higher score will
@@ -29,28 +30,37 @@ function adjustLoser(player, adjustment) {
 function adjust(team, match) {
   let adjustedTeam = JSON.parse(JSON.stringify(team));
 
+  console.log('TEAM', team);
+  console.log(
+    'MATCH',
+    match.teams[0].players,
+    match.teams[0].score,
+    match.teams[1].players,
+    match.teams[1].score
+  );
+
   let difference = Math.abs(match.teams[0].score - match.teams[1].score);
   let reward = obtainReward(match);
   if (reward === 100) {
-    console.log('Yay, a draw! Reward: ' + reward);
+    //console.log('Yay, a draw! Reward: ' + reward);
   } else {
     //sort teams in order of score, where rankedTeams[0] is the highest scoring
     //team
     let rankedTeams = match.teams.sort(rankTeams);
 
     //adjust player variables if they were in the winning team or losing team
-    adjustedTeam.players = team.players.map(player => {
-      player.gamesPlayed += 1;
-
+    adjustedTeam = team.players.map(player => {
       //if the player was on the winning team, adjust for win
       rankedTeams[0].players.forEach(winningPlayer => {
         if (player.id === winningPlayer.id) {
+          player.gamesPlayed += 1;
           return adjustWinner(player, difference);
         }
       });
       //if the player was on the losing team, adjust for loss
       rankedTeams[1].players.forEach(losingPlayer => {
         if (player.id === losingPlayer.id) {
+          player.gamesPlayed += 1;
           return adjustLoser(player, difference);
         }
       });

@@ -1,5 +1,8 @@
+const lineReader = require('readline');
+const fs = require('fs');
 const teamSelectionSimple = require('./iteration1/teamselectionsimple.js');
 const teamSelectionImproved = require('./iteration2/teamselectionimproved.js');
+const teamSelectionSurvey = require('./iteration2/teamselectionsurvey.js');
 
 //test team data
 const team = {
@@ -10,7 +13,11 @@ const team = {
       hiddenWeight: 64,
       gamesPlayed: 0,
       gamesWon: 0,
-      gamesLost: 0
+      gamesLost: 0,
+      streak: {
+        isWinStreak: true,
+        streak: 0
+      }
     },
     {
       id: 'PLAYER2',
@@ -18,7 +25,11 @@ const team = {
       hiddenWeight: 81,
       gamesPlayed: 0,
       gamesWon: 0,
-      gamesLost: 0
+      gamesLost: 0,
+      streak: {
+        isWinStreak: true,
+        streak: 0
+      }
     },
     {
       id: 'PLAYER3',
@@ -26,7 +37,11 @@ const team = {
       hiddenWeight: 40,
       gamesPlayed: 0,
       gamesWon: 0,
-      gamesLost: 0
+      gamesLost: 0,
+      streak: {
+        isWinStreak: true,
+        streak: 0
+      }
     },
     {
       id: 'PLAYER4',
@@ -34,7 +49,11 @@ const team = {
       hiddenWeight: 55,
       gamesPlayed: 0,
       gamesWon: 0,
-      gamesLost: 0
+      gamesLost: 0,
+      streak: {
+        isWinStreak: true,
+        streak: 0
+      }
     },
     {
       id: 'PLAYER5',
@@ -42,7 +61,11 @@ const team = {
       hiddenWeight: 60,
       gamesPlayed: 0,
       gamesWon: 0,
-      gamesLost: 0
+      gamesLost: 0,
+      streak: {
+        isWinStreak: true,
+        streak: 0
+      }
     },
     {
       id: 'PLAYER6',
@@ -50,7 +73,11 @@ const team = {
       hiddenWeight: 38,
       gamesPlayed: 0,
       gamesWon: 0,
-      gamesLost: 0
+      gamesLost: 0,
+      streak: {
+        isWinStreak: true,
+        streak: 0
+      }
     },
     {
       id: 'PLAYER7',
@@ -58,7 +85,11 @@ const team = {
       hiddenWeight: 92,
       gamesPlayed: 0,
       gamesWon: 0,
-      gamesLost: 0
+      gamesLost: 0,
+      streak: {
+        isWinStreak: true,
+        streak: 0
+      }
     },
     {
       id: 'PLAYER8',
@@ -66,7 +97,11 @@ const team = {
       hiddenWeight: 70,
       gamesPlayed: 0,
       gamesWon: 0,
-      gamesLost: 0
+      gamesLost: 0,
+      streak: {
+        isWinStreak: true,
+        streak: 0
+      }
     },
     {
       id: 'PLAYER9',
@@ -74,7 +109,11 @@ const team = {
       hiddenWeight: 26,
       gamesPlayed: 0,
       gamesWon: 0,
-      gamesLost: 0
+      gamesLost: 0,
+      streak: {
+        isWinStreak: true,
+        streak: 0
+      }
     },
     {
       id: 'PLAYER10',
@@ -82,7 +121,11 @@ const team = {
       hiddenWeight: 46,
       gamesPlayed: 0,
       gamesWon: 0,
-      gamesLost: 0
+      gamesLost: 0,
+      streak: {
+        isWinStreak: true,
+        streak: 0
+      }
     }
   ]
 };
@@ -183,5 +226,51 @@ const match = {
   ]
 };
 
+function readPlayers(filePath) {
+  let fileContent = '';
+  let players = [];
+
+  try {
+    fileContent = fs.readFileSync(filePath, 'utf8');
+  } catch (e) {
+    console.log('Error: ', e.stack);
+  }
+
+  let lines = fileContent.split('#');
+  lines.forEach((line, i) => {
+    if (i !== 0 && line.length > 10) {
+      let fields = line.split(';');
+      console.log(fields);
+      let names = fields[2].split(',').concat(fields[3].split(','));
+
+      names.forEach(name => {
+        //don't register guests
+        if (!name.includes('Guest')) {
+          //if not already in players, add player
+          if (players.indexOf(name) === -1) {
+            players.push(name);
+          }
+        }
+      });
+    }
+  });
+
+  console.log(players);
+
+  return {
+    players: players.map(player => ({
+      id: player,
+      weight: 50,
+      gamesPlayed: 0,
+      gamesWon: 0,
+      gamesLost: 0
+    }))
+  };
+}
+
+let players = readPlayers('scoresAndTeams.txt');
+console.log(players);
+
 //run teamselection
-teamSelectionImproved(team, match);
+//teamSelectionImproved(team, match);
+teamSelectionSurvey(players);

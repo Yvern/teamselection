@@ -1,6 +1,6 @@
 const fs = require('fs');
 const adjustment = require('./adjustment');
-const selection = require('./selection');
+const selection = require('./selection').selection;
 const simulateMatch = require('./simulation');
 
 //testing variables

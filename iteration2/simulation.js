@@ -31,6 +31,7 @@ module.exports = function(teams) {
     return turnScoring(relativeWeight);
   });
 
+  /*
   console.log(
     'SCORES: Team 1 (weight ' +
       totalWeights[0] +
@@ -41,6 +42,7 @@ module.exports = function(teams) {
       ') = ' +
       scores[1]
   );
+  */
 
   //add simulated scores to match teams
   for (i = 0; i < match.teams.length; i++) {

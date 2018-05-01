@@ -48,6 +48,39 @@ function rankPlayers(playerA, playerB) {
 }
 
 /**
+ * Calculates a player's win ratio based on the number of games played, won and
+ * lost.
+ */
+function calculateWinRatio({ gamesPlayed, gamesWon, gamesLost }) {
+  gamesDrawn = gamesPlayed - gamesWon - gamesLost;
+  points = gamesWon + gamesDrawn * 0.5;
+  winRatio = points / gamesPlayed;
+  return winRatio;
+}
+
+/**
+ * Calculates an adjustment to the player weight based on the winRatio
+ */
+function calculateWinRatioAdjustment({ gamesPlayed }, winRatio) {
+  //adjust the winRatio to be negative if lower than 0.5 and positive if higher
+  let adjustRatio = winRatio - 0.5;
+  //increase the adjustment in weight based on the number of games played
+  let weightAdjustment = winRatio * gamesPlayed;
+  return weightAdjustment;
+}
+
+/**
+ * Returns a weight adjustment based on the length of a possible win or loss
+ * streak, e.g. if a player has lost 4 games in a row, adjust score to be lower
+ */
+function calculateWinStreakAdjustment({ streak }) {
+  //make adjustment value negative or positive depending on whether the streak
+  //is a loss streak or win streak
+  let multiplier = streak.isWinStreak ? 1 : -1;
+  return multiplier * streak.streak;
+}
+
+/**
  * Function used to sort players into teams based on the information gathered
  * about the players in previous iterations.
  */
@@ -57,7 +90,20 @@ function exploit(players) {
 
   //Sort players according to their weight, then sort them using the parity
   //function (see README)
-  let sortedPlayers = players.sort(rankPlayers);
+
+  let playersCopy = JSON.parse(JSON.stringify(players));
+  /*
+  playersCopy.forEach(player => {
+    player.weight += calculateWinRatioAdjustment(
+      player,
+      calculateWinRatio(player)
+    );
+    if (player.streak) {
+      players.weight += calculateWinStreakAdjustment(player);
+    }
+  });
+*/
+  let sortedPlayers = playersCopy.sort(rankPlayers);
 
   //initialise empty teams
   let teams = [
@@ -94,7 +140,6 @@ function exploit(players) {
  * The function will first determine whether it is most useful to explore (by
  * randomizing teams to gather information) or to exploit the information that
  * has been gathered on players so far to create better teams.
- * @TODO: Include logic to determine whether to explore or exploit
  */
 function selection(players) {
   sumGamesPlayed = 0;
@@ -116,4 +161,4 @@ function selection(players) {
   return teams;
 }
 
-module.exports = selection;
+module.exports = { selection, random: explore };
