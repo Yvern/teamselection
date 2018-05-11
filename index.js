@@ -126,6 +126,54 @@ const team = {
         isWinStreak: true,
         streak: 0
       }
+    },
+    {
+      id: 'PLAYER11',
+      weight: 50,
+      hiddenWeight: 142,
+      gamesPlayed: 0,
+      gamesWon: 0,
+      gamesLost: 0,
+      streak: {
+        isWinStreak: true,
+        streak: 0
+      }
+    },
+    {
+      id: 'PLAYER12',
+      weight: 50,
+      hiddenWeight: -10,
+      gamesPlayed: 0,
+      gamesWon: 0,
+      gamesLost: 0,
+      streak: {
+        isWinStreak: true,
+        streak: 0
+      }
+    },
+    {
+      id: 'PLAYER13',
+      weight: 50,
+      hiddenWeight: 82,
+      gamesPlayed: 0,
+      gamesWon: 0,
+      gamesLost: 0,
+      streak: {
+        isWinStreak: true,
+        streak: 0
+      }
+    },
+    {
+      id: 'PLAYER14',
+      weight: 50,
+      hiddenWeight: 56,
+      gamesPlayed: 0,
+      gamesWon: 0,
+      gamesLost: 0,
+      streak: {
+        isWinStreak: true,
+        streak: 0
+      }
     }
   ]
 };
@@ -240,7 +288,6 @@ function readPlayers(filePath) {
   lines.forEach((line, i) => {
     if (i !== 0 && line.length > 10) {
       let fields = line.split(';');
-      console.log(fields);
       let names = fields[2].split(',').concat(fields[3].split(','));
 
       names.forEach(name => {
@@ -255,8 +302,6 @@ function readPlayers(filePath) {
     }
   });
 
-  console.log(players);
-
   return {
     players: players.map(player => ({
       id: player,
@@ -269,8 +314,7 @@ function readPlayers(filePath) {
 }
 
 let players = readPlayers('scoresAndTeams.txt');
-console.log(players);
 
 //run teamselection
-//teamSelectionImproved(team, match);
-teamSelectionSurvey(players);
+teamSelectionImproved(team, match);
+//teamSelectionSurvey(players);

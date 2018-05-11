@@ -1,10 +1,11 @@
 const fs = require('fs');
 const adjustment = require('./adjustment');
 const selection = require('./selection').selection;
+const random = require('./selection').random;
 const simulateMatch = require('./simulation');
 
 //testing variables
-const ITERATIONS_PER_ADJUSTMENT = 20; //number of matches simulated with same player variables
+const ITERATIONS_PER_ADJUSTMENT = 1000; //number of matches simulated with same player variables
 const TOTAL_ITERATIONS = 100; //total number of times adjustments will be done
 
 /**
@@ -38,8 +39,10 @@ module.exports = function(team, match) {
     let matchTeams;
     let matchOutcome;
     for (j = 0; j < ITERATIONS_PER_ADJUSTMENT; j++) {
-      //generate teams for the match based on learned rules
-      matchTeams = selection(team.players);
+      //shuffle array randomly to select 10 out of 14 players
+      shuffle(team.players);
+      //select 10 players to include in this game
+      matchTeams = selection(team.players.slice(0, 10));
       //simulateMatch
       matchOutcome = simulateMatch(matchTeams);
       sumReward += adjustment.obtainReward(matchOutcome);
@@ -77,4 +80,19 @@ function fileWriteInfo(iteration, matchTeams, matchOutcome, adjustedTeam) {
   let info = iterationString + teamInfo + matchInfo + newTeamInfo + '\n\n';
 
   return info;
+}
+
+/**
+ * Shuffles array in place according to Fisher-Yates shuffle.
+ * @param {Array} a items An array containing the items.
+ */
+function shuffle(a) {
+  var j, x, i;
+  for (i = a.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i + 1));
+    x = a[i];
+    a[i] = a[j];
+    a[j] = x;
+  }
+  return a;
 }

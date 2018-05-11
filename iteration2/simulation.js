@@ -28,7 +28,7 @@ module.exports = function(teams) {
     //calculate the average player weight
     let relativeWeight = weight / totalWeight * 100;
     //randomly add or subtract a number between 0 or the specified percentage
-    return turnScoring(relativeWeight);
+    return relativeWeight;
   });
 
   /*

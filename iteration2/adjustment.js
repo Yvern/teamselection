@@ -30,15 +30,6 @@ function adjustLoser(player, adjustment) {
 function adjust(team, match) {
   let adjustedTeam = JSON.parse(JSON.stringify(team));
 
-  console.log('TEAM', team);
-  console.log(
-    'MATCH',
-    match.teams[0].players,
-    match.teams[0].score,
-    match.teams[1].players,
-    match.teams[1].score
-  );
-
   let difference = Math.abs(match.teams[0].score - match.teams[1].score);
   let reward = obtainReward(match);
   if (reward === 100) {

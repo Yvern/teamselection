@@ -28,7 +28,6 @@ module.exports = function(players) {
   console.log('Final adjusted team: ', adjustedPlayers);
 
   let frequentPlayers = adjustedPlayers.filter(player => {
-    console.log('player:', player);
     return player.gamesPlayed >= 3;
   });
 
@@ -36,11 +35,13 @@ module.exports = function(players) {
   //console.log('MATCH TEAM 1', matchTeams[0].players);
   //console.log('MATCH TEAM 2', matchTeams[1].players);
 
+  /*
   for (let i = 0; i < NUMBER_OF_SURVEY_TEAMS; i++) {
     shuffle(adjustedPlayers);
     matchTeams = random(frequentPlayers.slice(0, 10));
     //console.log('MATCH TEAM 1', matchTeams[0].players);
     //console.log('MATCH TEAM 2', matchTeams[1].players);
+
 
     let match = i + '\n';
     let team1 =
@@ -57,6 +58,37 @@ module.exports = function(players) {
       console.log('Writing...');
     });
   }
+  */
+
+  //generate actual team based on given players
+  let usedPlayers = [
+    'Jonnie',
+    'Njabulo',
+    'Tamas',
+    'StephenL',
+    'Wazzy',
+    'MattL',
+    'Jason',
+    'Oliver',
+    'Jake',
+    'Emilian',
+    'TomM',
+    'Josh'
+  ];
+  let teamPlayers = [];
+  adjustedPlayers.forEach(player => {
+    usedPlayers.forEach(name => {
+      if (player.id === name) {
+        teamPlayers.push(player);
+        console.log(player, name);
+      }
+    });
+  });
+  console.log('TEAM players: ', teamPlayers);
+
+  console.log('MATCH TEAMS: ', selection(teamPlayers));
+  console.log('TEAM 1: ', selection(teamPlayers)[0].players);
+  console.log('TEAM 2: ', selection(teamPlayers)[1].players);
 };
 
 function getMatchInformation(filePath) {

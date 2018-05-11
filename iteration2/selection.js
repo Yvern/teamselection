@@ -92,7 +92,7 @@ function exploit(players) {
   //function (see README)
 
   let playersCopy = JSON.parse(JSON.stringify(players));
-  /*
+
   playersCopy.forEach(player => {
     player.weight += calculateWinRatioAdjustment(
       player,
@@ -102,7 +102,7 @@ function exploit(players) {
       players.weight += calculateWinStreakAdjustment(player);
     }
   });
-*/
+
   let sortedPlayers = playersCopy.sort(rankPlayers);
 
   //initialise empty teams
@@ -142,23 +142,51 @@ function exploit(players) {
  * has been gathered on players so far to create better teams.
  */
 function selection(players) {
+  /*
   sumGamesPlayed = 0;
   players.forEach(({ gamesPlayed }) => {
     sumGamesPlayed += gamesPlayed;
   });
 
   averageGamesPlayed = sumGamesPlayed / players.length;
+  */
   let teams;
 
   //decide between explore and exploit based on average games played
   // @TODO: NEEDS REFINEMENT!
-  if (averageGamesPlayed >= 3) {
+  let exploitChance = findExploitChance(players);
+  if (exploitChance > Math.ceil(Math.random() * 100)) {
+    console.log('exploit');
     teams = exploit(players);
   } else {
     teams = explore(players);
   }
 
   return teams;
+}
+
+/**
+ * A function with which to calculate the chance for the algorithm to exploit
+ * knowledge that has been gained rather than explore for information about
+ * the players' performance
+ */
+function findExploitChance(players) {
+  //get the mode number of games played in a set of players
+  let sortedPlayers = players.sort(sortGamesPlayed);
+  let modePosition = Math.floor((sortedPlayers.length - 1) / 2);
+  let mode = sortedPlayers[modePosition].gamesPlayed;
+
+  const MAX_EXPLOIT_CHANCE = 95;
+  let chance = MAX_EXPLOIT_CHANCE / (1 + Math.exp(-1 * (mode - 5)));
+  console.log(chance);
+  return chance;
+}
+
+function sortGamesPlayed(playerA, playerB) {
+  if (playerA.gamesPlayed > playerB.gamesPlayed) {
+    return 1;
+  }
+  return -1;
 }
 
 module.exports = { selection, random: explore };

@@ -10,6 +10,15 @@ for the next match. The algorithm is based on reinforcement learning, where it w
 'learn' through trial and error by balancing its exploring of possible variables with
 exploiting of information that it gains.
 
+--- Running the algorithm ---
+To run the algorithm on a local machine, Node.js must be installed. When installed,
+use the command line within the teamselection folder (where this README.md document is)
+and execute:
+
+node index.js
+
+This will start the algorithm to test based on given test parameters and output the
+results to a 'results.csv' file.
 
 --- ITERATION 1 ---
 
@@ -58,3 +67,26 @@ Parity function:
 Resulting teams: 91, 55, 26 (total: 172) VS 77, 62, 40 (total: 179)
 
 This will achieve a fairly equal weighting, but is imperfect.
+
+--- ITERATION 2 ---
+teamselectionimproved.js
+-> File that holds the functions to test the algorithm's functionality, uses
+iterations and simulated information to test the algorithm on
+
+teamselectionsurvey.js
+-> File that holds the functions to use the algorithm to create predictions based
+on real obtained data. This will be used in a survey.
+
+reward.js
+-> Holds the function that determines the given reward based on a match outcome.
+Rewards now penalise match outcomes with greatly differing scores more by using
+squared 'error'.
+
+adjustment.js
+-> Adjustment now adjusts based on relative score difference and takes into
+consideration the games played.
+
+selection.js
+-> Functions to select teams based on explore and exploit. The explore vs exploit
+algorithm, or calling schedule, has been refined in this iteration to use a
+sigmoid curve to calculate the probability of choosing exploit over explore.
